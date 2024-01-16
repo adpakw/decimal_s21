@@ -28,6 +28,39 @@ int get_exp(s21_decimal dnum) {
   uint buffer = 0b11111111;
   return int_to_bin(((buffer << 15) & dnum.bits[3]) >> 15);
 }
+
+uint s21_get_highestbit(s21_decimal dnum){
+  uint i=95;
+  while (get_bit(dnum,i)!=1 && i>-1)i--;
+  return i;
+}
+void s21_shift_left(s21_decimal* number) {
+  uint low_last_bit = get_bit(*number, 31);
+  uint mid_last_bit = get_bit(*number, 63);
+
+  number->bits[0] <<= 1;
+  number->bits[1] <<= 1;
+  number->bits[2] <<= 1;
+
+  set_bit(number, 32, low_last_bit);
+  set_bit(number, 64, mid_last_bit);
+}
+void s21_shift_right(s21_decimal* number) {
+  int low_last_bit = get_bit(*number, 32);
+  int mid_last_bit = get_bit(*number, 64);
+
+  number->bits[0] >>= 1;
+  number->bits[1] >>= 1;
+  number->bits[2] >>= 1;
+
+  set_bit(number, 31, low_last_bit);
+  set_bit(number, 63, mid_last_bit);
+}
+
+// int s21_get_exp(s21_decimal value) {
+//   return (char)(((unsigned)value.bits[3]) >> 16); надо переписать на такое
+// }
+
 int get_sign(s21_decimal dnum) { return get_bit(dnum, 127); }
 void set_sign(s21_decimal dnum, int sign) { set_bit(&dnum, 127, sign); }
 

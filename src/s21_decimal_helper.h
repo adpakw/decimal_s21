@@ -13,4 +13,8 @@ int get_exp(s21_decimal dnum);
 int compare(uint a, uint b);
 int get_sign(s21_decimal dnum);
 void set_sign(s21_decimal dnum, int sign);
+
+void s21_shift_left(s21_decimal* number);
+uint s21_get_highestbit(s21_decimal dnum);
+void s21_shift_right(s21_decimal* number);
 #endif
