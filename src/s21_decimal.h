@@ -1,15 +1,23 @@
 #ifndef S21_DECIMAL_H
 #define S21_DECIMAL_H
 
-#define foreach(item, array)                                            \
-  for (int keep = 1, count = 0, size = sizeof(array) / sizeof *(array); \
-       keep && count != size; keep = !keep, count++)                    \
+#define foreach(item, array)                                                   \
+  for (int keep = 1, count = 0, size = sizeof(array) / sizeof *(array);        \
+       keep && count != size; keep = !keep, count++)                           \
     for (item = (array) + count; keep; keep = !keep)
 #define uint unsigned int
 
 typedef struct {
   unsigned int bits[4];
 } s21_decimal;
+
+typedef struct {
+  unsigned int bits[8];
+  int exponenta;
+  int sign;
+  int one_position_left;
+  int one_right;
+} s21_big_decimal;
 
 int s21_from_int_to_decimal(int src, s21_decimal *dst);
 int s21_from_float_to_decimal(float src, s21_decimal *dst);

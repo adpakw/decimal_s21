@@ -2,35 +2,35 @@
 
 int s21_is_less(s21_decimal a, s21_decimal b) {
   switch (compare(get_sign(a), get_sign(b))) {
-    case 0:
-      break;
-    case 1:
-      return FALSE;
-      break;
-    case -1:
-      return TRUE;
-      break;
+  case 0:
+    break;
+  case 1:
+    return FALSE;
+    break;
+  case -1:
+    return TRUE;
+    break;
   }
   switch (compare(get_exp(a), get_exp(b))) {
-    case 0:
-      break;
-    case 1:
-      return FALSE;
-      break;
-    case -1:
-      return TRUE;
-      break;
+  case 0:
+    break;
+  case 1:
+    return FALSE;
+    break;
+  case -1:
+    return TRUE;
+    break;
   }
   for (int i = 3; i > -1; i--) {
     switch (compare(a.bits[i], b.bits[i])) {
-      case 0:
-        break;
-      case 1:
-        return FALSE;
-        break;
-      case -1:
-        return TRUE;
-        break;
+    case 0:
+      break;
+    case 1:
+      return FALSE;
+      break;
+    case -1:
+      return TRUE;
+      break;
     }
   }
   return FALSE;
@@ -38,35 +38,35 @@ int s21_is_less(s21_decimal a, s21_decimal b) {
 
 int s21_is_less_or_equal(s21_decimal a, s21_decimal b) {
   switch (compare(get_sign(a), get_sign(b))) {
-    case 0:
-      break;
-    case 1:
-      return FALSE;
-      break;
-    case -1:
-      return TRUE;
-      break;
+  case 0:
+    break;
+  case 1:
+    return FALSE;
+    break;
+  case -1:
+    return TRUE;
+    break;
   }
   switch (compare(get_exp(a), get_exp(b))) {
-    case 0:
-      break;
-    case 1:
-      return FALSE;
-      break;
-    case -1:
-      return TRUE;
-      break;
+  case 0:
+    break;
+  case 1:
+    return FALSE;
+    break;
+  case -1:
+    return TRUE;
+    break;
   }
   for (int i = 3; i > -1; i--) {
     switch (compare(a.bits[i], b.bits[i])) {
-      case 0:
-        break;
-      case 1:
-        return FALSE;
-        break;
-      case -1:
-        return TRUE;
-        break;
+    case 0:
+      break;
+    case 1:
+      return FALSE;
+      break;
+    case -1:
+      return TRUE;
+      break;
     }
   }
   return TRUE;
@@ -74,35 +74,35 @@ int s21_is_less_or_equal(s21_decimal a, s21_decimal b) {
 
 int s21_is_greater(s21_decimal a, s21_decimal b) {
   switch (compare(get_sign(a), get_sign(b))) {
-    case 0:
-      break;
-    case 1:
-      return TRUE;
-      break;
-    case -1:
-      return FALSE;
-      break;
+  case 0:
+    break;
+  case 1:
+    return TRUE;
+    break;
+  case -1:
+    return FALSE;
+    break;
   }
   switch (compare(get_exp(a), get_exp(b))) {
-    case 0:
-      break;
-    case 1:
-      return TRUE;
-      break;
-    case -1:
-      return FALSE;
-      break;
+  case 0:
+    break;
+  case 1:
+    return TRUE;
+    break;
+  case -1:
+    return FALSE;
+    break;
   }
   for (int i = 3; i > -1; i--) {
     switch (compare(a.bits[i], b.bits[i])) {
-      case 0:
-        break;
-      case 1:
-        return TRUE;
-        break;
-      case -1:
-        return FALSE;
-        break;
+    case 0:
+      break;
+    case 1:
+      return TRUE;
+      break;
+    case -1:
+      return FALSE;
+      break;
     }
   }
   return FALSE;
@@ -110,35 +110,35 @@ int s21_is_greater(s21_decimal a, s21_decimal b) {
 
 int s21_is_greater_or_equal(s21_decimal a, s21_decimal b) {
   switch (compare(get_sign(a), get_sign(b))) {
-    case 0:
-      break;
-    case 1:
-      return TRUE;
-      break;
-    case -1:
-      return FALSE;
-      break;
+  case 0:
+    break;
+  case 1:
+    return TRUE;
+    break;
+  case -1:
+    return FALSE;
+    break;
   }
   switch (compare(get_exp(a), get_exp(b))) {
-    case 0:
-      break;
-    case 1:
-      return TRUE;
-      break;
-    case -1:
-      return FALSE;
-      break;
+  case 0:
+    break;
+  case 1:
+    return TRUE;
+    break;
+  case -1:
+    return FALSE;
+    break;
   }
   for (int i = 3; i > -1; i--) {
     switch (compare(a.bits[i], b.bits[i])) {
-      case 0:
-        break;
-      case 1:
-        return TRUE;
-        break;
-      case -1:
-        return FALSE;
-        break;
+    case 0:
+      break;
+    case 1:
+      return TRUE;
+      break;
+    case -1:
+      return FALSE;
+      break;
     }
   }
   return TRUE;

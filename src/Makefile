@@ -7,7 +7,8 @@ OBJECTS = $(patsubst %.c,%.o, ${SOURCE})
 TESTS_SOURCE = tests.c
 HELPER_SOURCE = s21_decimal_helper.c
 comparison_source = s21_decimal_comparison.c
-ARITHMETIC_SOURCE = s21_decimal_arithmetics.c
+ARITHMETIC_SOURCE = s21_decimal_arithmetics.c 
+CAST_SOURCE = s21_cast.c
 TESTS_OBJECTS = $(patsubst %.c,%.o, ${TESTS_SOURCE})
 UNAME_S := $(shell uname -s)
 
@@ -49,8 +50,9 @@ comparison:$(comparison_source) $(HELPER_SOURCE)
 	${CC} $(LDFLAGS) -o comp $^ $(RFLAGS)
 	./comp
 
-ari:$(ARITHMETIC_SOURCE) $(HELPER_SOURCE)
-	make clang
+ari:$(ARITHMETIC_SOURCE) $(HELPER_SOURCE) $(CAST_SOURCE)
+	# make clang
+	clang-format -i *.c *.h
 	${CC} $(LDFLAGS) -o ari $^ $(RFLAGS)
 	./ari
 
@@ -81,5 +83,6 @@ clean:
 	-rm -rf sprintf
 	-rm -rf *.out
 	-rm -rf help comp
+	rm -rf ari
 
 .PHONY: all clean lcov

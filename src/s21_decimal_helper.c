@@ -24,17 +24,38 @@ void set_bit(s21_decimal *dnum, int bit, int value) {
   }
 }
 
-int get_exp(s21_decimal dnum) {
+int get_exp_in_bin(s21_decimal dnum) {
   uint buffer = 0b11111111;
   return int_to_bin(((buffer << 15) & dnum.bits[3]) >> 15);
 }
 
-uint s21_get_highestbit(s21_decimal dnum){
-  uint i=95;
-  while (get_bit(dnum,i)!=1 && i>-1)i--;
-  return i;
+int get_exp(s21_decimal dnum) {
+  int mask = 0b11111111;
+  mask <<= 16;
+  mask = dnum.bits[3] & mask;
+  mask >>= 16;
+  return mask;
 }
-void s21_shift_left(s21_decimal* number) {
+
+int set_exp(s21_decimal *num, int exp) {
+  int result = 0;
+  if (exp < 256 && exp >= 0) {
+    for (int i = 0; i < 8; i++) {
+      set_bit(num, i + 16 + 96, exp % 2);
+      exp >>= 1;
+    }
+  } else {
+    result = 1;
+  }
+  return result;
+}
+
+// uint s21_get_highestbit(s21_decimal dnum){
+//   uint i=95;
+//   while (get_bit(dnum,i)!=1 && i>-1)i--;
+//   return i;
+// }
+void s21_shift_left(s21_decimal *number) {
   uint low_last_bit = get_bit(*number, 31);
   uint mid_last_bit = get_bit(*number, 63);
 
@@ -45,7 +66,7 @@ void s21_shift_left(s21_decimal* number) {
   set_bit(number, 32, low_last_bit);
   set_bit(number, 64, mid_last_bit);
 }
-void s21_shift_right(s21_decimal* number) {
+void s21_shift_right(s21_decimal *number) {
   int low_last_bit = get_bit(*number, 32);
   int mid_last_bit = get_bit(*number, 64);
 
@@ -62,7 +83,7 @@ void s21_shift_right(s21_decimal* number) {
 // }
 
 int get_sign(s21_decimal dnum) { return get_bit(dnum, 127); }
-void set_sign(s21_decimal dnum, int sign) { set_bit(&dnum, 127, sign); }
+void set_sign(s21_decimal *dnum, int sign) { set_bit(dnum, 127, sign); }
 
 int compare(uint a, uint b) {
   uint fb = 1 << (sizeof(a) * 8 - 1);
@@ -70,12 +91,32 @@ int compare(uint a, uint b) {
   while (!((a ^ b) & fb)) {
     a <<= 1;
     b <<= 1;
-    if (!a && !b) return 0;
+    if (!a && !b)
+      return 0;
   }
   if (a & fb)
     return 1;
   else
     return -1;
+}
+
+int get_bit_big(s21_big_decimal *num, int cur_bit) {
+  int bit;
+  if ((num->bits[cur_bit / 32] & (1 << cur_bit % 32)) == 0) {
+    bit = 0;
+  } else {
+    bit = 1;
+  }
+
+  return bit;
+}
+
+void set_bit_big(s21_big_decimal *num, int bit, int result) {
+  if (result == 1) {
+    num->bits[bit / 32] = num->bits[bit / 32] | (1 << bit % 32);
+  } else if (result == 0) {
+    num->bits[bit / 32] = num->bits[bit / 32] & ~(1 << bit % 32);
+  }
 }
 
 // int main() {
